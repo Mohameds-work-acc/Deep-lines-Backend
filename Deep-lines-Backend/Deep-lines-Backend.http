@@ -1,0 +1,6 @@
+@Deep_lines_Backend_HostAddress = http://localhost:5044
+
+GET {{Deep_lines_Backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

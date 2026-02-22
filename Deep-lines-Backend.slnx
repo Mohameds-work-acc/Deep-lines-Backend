@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Deep-lines-Backend.BLL/Deep-lines-Backend.BLL.csproj" />
+  <Project Path="Deep-lines-Backend.DAL/Deep-lines-Backend.DAL.csproj" />
+  <Project Path="Deep-lines-Backend/Deep-lines-Backend.csproj" />
+</Solution>
