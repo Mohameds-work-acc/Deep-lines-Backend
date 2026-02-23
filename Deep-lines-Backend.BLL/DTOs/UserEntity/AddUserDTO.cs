@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Deep_lines_Backend.DAL.Models
+namespace Deep_lines_Backend.BLL.DTOs.UserEntity
 {
-    public class User
+    public class AddUserDTO
     {
-        public int Id { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
-
     }
 }

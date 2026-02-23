@@ -12,8 +12,10 @@ namespace Deep_lines_Backend.DAL.Models
         public string image_url { get; set; }
         public string vision {  get; set; }
         public string mission { get; set;  }
-        public int User_Id { get; set; }
-        public User published_user { get; set; }
+        public int? User_Id { get; set; }
+        public User? published_user { get; set; }
+
+        public List<Projects>? Related_Projects { get; set; } = new List<Projects>();
 
     }
 }

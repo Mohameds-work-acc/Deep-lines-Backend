@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Deep_lines_Backend.DAL.Models
 {
-    public class Reviwe
+    public class Review
     {
         public int Id { get; set; }
         public int rate { get; set; }

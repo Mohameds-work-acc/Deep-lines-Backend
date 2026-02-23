@@ -9,9 +9,10 @@ namespace Deep_lines_Backend.DAL.Models
         public int Id { get; set; }
         public string title { get; set; }
         public string content { get; set; }
+        public string imageUrl { get; set; }
         public DateTime published_date { get; set; } = DateTime.Now;
-        public int User_Id { get; set; }
-        public User user { get; set; }
-        public List<Comment> comments { get; set; }
+        public int? User_Id { get; set; }
+        public User? user { get; set; }
+        public List<Comment>? comments { get; set; } = new List<Comment>();
     }
 }
