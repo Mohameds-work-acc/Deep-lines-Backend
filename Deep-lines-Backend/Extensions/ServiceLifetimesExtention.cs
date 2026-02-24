@@ -17,6 +17,11 @@ namespace Deep_lines_Backend.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProjectsService, ProjectsService>();
+            services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<ISectorService, SectorService>();
             services.AddScoped<ICategoryService, CategoryService>();
 
             return services;

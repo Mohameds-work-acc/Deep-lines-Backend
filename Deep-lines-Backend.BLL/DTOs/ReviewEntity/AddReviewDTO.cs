@@ -1,17 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Deep_lines_Backend.DAL.Models
+namespace Deep_lines_Backend.BLL.DTOs.ReviewEntity
 {
-    public class Review
+    public class AddReviewDTO
     {
-        public int Id { get; set; }
         public int rate { get; set; }
         public string comment { get; set; }
         public string reviewer_name { get; set; }
         public string reviewer_email { get; set; }
         public int Product_Id { get; set; }
-        public Product product { get; set; }
     }
 }

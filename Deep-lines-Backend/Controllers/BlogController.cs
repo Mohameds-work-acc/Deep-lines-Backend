@@ -32,11 +32,11 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] AddBlogDTO blogDto)
+        public async Task<IActionResult> Create([FromBody] AddBlogDTO blogDto)
         {
             if (blogDto == null) return BadRequest();
 
-            blogService.AddBlog(blogDto);
+            await blogService.AddBlog(blogDto);
 
             return Ok();
         }
