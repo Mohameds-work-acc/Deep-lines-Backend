@@ -11,6 +11,7 @@ namespace Deep_lines_Backend.BLL.Interfaces.IService
     {
         public Task AddUser(AddUserDTO userDTO);
         public Task<User> GetById(int id);
+        public Task<User> GetByEmail(string email);
         public Task<List<User>> GetAll();
         public Task<bool> UpdateUser(AddUserDTO userDTO, int id);
         public Task<bool> DeleteUser(int id);

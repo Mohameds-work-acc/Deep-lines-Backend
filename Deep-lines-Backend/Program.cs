@@ -20,6 +20,8 @@ builder.Services.addServiceLifetimesExtention();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

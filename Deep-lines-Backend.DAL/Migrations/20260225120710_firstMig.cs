@@ -45,7 +45,7 @@ namespace Deep_lines_Backend.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -187,6 +187,8 @@ namespace Deep_lines_Backend.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     rate = table.Column<int>(type: "int", nullable: false),
                     comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    reviewer_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    reviewer_email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Product_Id = table.Column<int>(type: "int", nullable: false),
                     productId = table.Column<int>(type: "int", nullable: false)
                 },
