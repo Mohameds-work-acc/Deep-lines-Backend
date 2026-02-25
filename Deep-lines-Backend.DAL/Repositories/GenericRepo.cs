@@ -1,4 +1,4 @@
-﻿using Deep_lines_Backend.BLL.Interfaces;
+﻿using Deep_lines_Backend.BLL.Interfaces.IRepos;
 using Deep_lines_Backend.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using System;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Deep_lines_Backend.BLL.Interfaces
+namespace Deep_lines_Backend.BLL.Interfaces.IRepos
 {
     public interface IGenericRepo<T> where T  : class
     {

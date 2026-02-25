@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Deep_lines_Backend.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,6 +16,7 @@ namespace Deep_lines_Backend.DAL.Models
         public List<Blog>? Published_Blogs { get; set; } = new List<Blog>();
         public List<Sector>? Published_Sectors { get; set; } = new List<Sector>();
         public List<Product>? Published_Products { get; set; } = new List<Product>();
+        public List<RefreshToken>? refreshTokens { get; set; }= new List<RefreshToken>(); 
 
     }
 }

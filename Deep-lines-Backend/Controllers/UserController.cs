@@ -1,5 +1,6 @@
 ﻿using Deep_lines_Backend.BLL.DTOs.UserEntity;
 using Deep_lines_Backend.BLL.Interfaces.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

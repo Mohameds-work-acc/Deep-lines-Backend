@@ -1,6 +1,6 @@
 using AutoMapper;
 using Deep_lines_Backend.BLL.DTOs.ReviewEntity;
-using Deep_lines_Backend.BLL.Interfaces;
+using Deep_lines_Backend.BLL.Interfaces.IRepos;
 using Deep_lines_Backend.BLL.Interfaces.IService;
 using Deep_lines_Backend.DAL.Models;
 using System.Collections.Generic;

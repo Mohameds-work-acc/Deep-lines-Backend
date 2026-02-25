@@ -7,6 +7,8 @@ namespace Deep_lines_Backend.BLL.Interfaces.IService
 {
     public interface IAuthService
     {
-        public bool Authenticate(LoginDTO loginDTO);
+        public AuthResponse? Authenticate(LoginDTO loginDTO);
+        public RefreshTokenResponse RefreshToken(int id ,  string refreshToken);
+
     }
 }

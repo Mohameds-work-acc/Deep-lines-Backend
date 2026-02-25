@@ -1,4 +1,5 @@
 ﻿using Deep_lines_Backend.DAL.Models;
+using Deep_lines_Backend.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,8 @@ namespace Deep_lines_Backend.DAL.Context
         public DbSet<Review> Reviwe { get; set; }
         public DbSet<Sector> Sectors { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
-        
+
     }
 }

@@ -1,5 +1,6 @@
-﻿using Deep_lines_Backend.BLL.Interfaces;
+﻿using Deep_lines_Backend.BLL.Interfaces.IRepos;
 using Deep_lines_Backend.BLL.Interfaces.IService;
+using Deep_lines_Backend.BLL.JWT;
 using Deep_lines_Backend.BLL.Services;
 using Deep_lines_Backend.DAL.Repositories;
 using System.Runtime.CompilerServices;
@@ -23,7 +24,9 @@ namespace Deep_lines_Backend.Extensions
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<ISectorService, SectorService>();
             services.AddScoped<ICategoryService, CategoryService>();
-
+            services.AddScoped<IRefreshTokenRepo,RefreshTokenRepo>();
+            services.AddScoped<IJWTService , JWTService>();
+            services.AddScoped<IAuthService, AuthService>();
             return services;
         }
     }
