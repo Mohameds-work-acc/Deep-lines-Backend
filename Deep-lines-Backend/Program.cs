@@ -9,6 +9,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+// Allow requests from the Angular dev server (http://localhost:4200)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowFront",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials();
+        });
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -28,7 +41,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
+
     app.UseSwaggerUI();
+
+    app.UseCors("AllowFront");
+
 }
 
 app.UseHttpsRedirection();

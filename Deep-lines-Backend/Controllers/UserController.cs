@@ -33,6 +33,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody] AddUserDTO userDto)
         {
             if (userDto == null) return BadRequest();

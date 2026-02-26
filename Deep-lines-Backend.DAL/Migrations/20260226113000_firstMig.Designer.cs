@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Deep_lines_Backend.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260225120710_firstMig")]
+    [Migration("20260226113000_firstMig")]
     partial class firstMig
     {
         /// <inheritdoc />
@@ -340,6 +340,37 @@ namespace Deep_lines_Backend.DAL.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Deep_lines_Backend.Domain.Models.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("createdOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("revokedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Blog", b =>
                 {
                     b.HasOne("Deep_lines_Backend.DAL.Models.User", "user")
@@ -428,6 +459,17 @@ namespace Deep_lines_Backend.DAL.Migrations
                     b.Navigation("published_user");
                 });
 
+            modelBuilder.Entity("Deep_lines_Backend.Domain.Models.RefreshToken", b =>
+                {
+                    b.HasOne("Deep_lines_Backend.DAL.Models.User", "User")
+                        .WithMany("refreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Blog", b =>
                 {
                     b.Navigation("comments");
@@ -454,6 +496,8 @@ namespace Deep_lines_Backend.DAL.Migrations
                     b.Navigation("Published_Projects");
 
                     b.Navigation("Published_Sectors");
+
+                    b.Navigation("refreshTokens");
                 });
 #pragma warning restore 612, 618
         }
