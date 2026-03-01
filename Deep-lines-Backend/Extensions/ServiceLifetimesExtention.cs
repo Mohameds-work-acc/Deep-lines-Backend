@@ -15,7 +15,7 @@ namespace Deep_lines_Backend.Extensions
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
 
             services.AddScoped<IBlogService, BlogService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IOrderService, OrderService>();

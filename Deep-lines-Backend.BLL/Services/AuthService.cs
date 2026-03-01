@@ -12,12 +12,12 @@ namespace Deep_lines_Backend.BLL.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly IUserService userService;
+        private readonly IEmployeeService userService;
         private readonly IJWTService jwtService;
         private readonly JWTConfig jWTConfig;
         private readonly PasswordHasher<object> passwordHasher = new();
 
-        public AuthService(IUserService userService, IJWTService jwtService , IOptions<JWTConfig> options)
+        public AuthService(IEmployeeService userService, IJWTService jwtService , IOptions<JWTConfig> options)
         {
             this.userService = userService;
             this.jwtService = jwtService;
@@ -47,12 +47,6 @@ namespace Deep_lines_Backend.BLL.Services
                 {
                     Token = jwtService.GenerateRefreshToken(),
                     ExpiryDate = DateTime.UtcNow.AddDays(jWTConfig.RefreshTokenExpiresInDays)
-                },
-                User = new UserInfoDTO
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    Role = user.Role
                 },
                 Message = "Authentication successful"
             };

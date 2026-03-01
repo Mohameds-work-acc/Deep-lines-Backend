@@ -21,7 +21,7 @@ namespace Deep_lines_Backend.BLL.Mapping
         public MappingProfile()
         {
             CreateMap<AddBlogDTO, Blog>().ReverseMap();
-            CreateMap<AddUserDTO, User>().ReverseMap();
+            CreateMap<AddUserDTO, Employee>().ReverseMap();
             CreateMap<AddCategoryDTO, Category>().ReverseMap();
             CreateMap<AddCommentDTO, Comment>().ReverseMap();
             CreateMap<AddCustomerDTO, Customer>().ReverseMap();

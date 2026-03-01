@@ -14,6 +14,6 @@ namespace Deep_lines_Backend.Domain.Models
         public DateTime createdOn { get; set; } = DateTime.UtcNow;
         public DateTime? revokedOn { get; set; } = null;
         public int UserId { get; set; }
-        public User User { get; set; }
+        public Employee User { get; set; }
     }
 }

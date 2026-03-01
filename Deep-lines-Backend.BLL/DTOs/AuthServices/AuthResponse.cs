@@ -9,7 +9,6 @@ namespace Deep_lines_Backend.BLL.DTOs.AuthServices
     {
         public string Token { get; set; } = string.Empty;
         public RefreshTokenDTO refreshToken { get; set; }
-        public UserInfoDTO User { get; set; } = new UserInfoDTO();
         public string Message { get; set; } = string.Empty;
     }
 }

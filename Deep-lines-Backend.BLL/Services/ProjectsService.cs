@@ -11,11 +11,11 @@ namespace Deep_lines_Backend.BLL.Services
     public class ProjectsService : IProjectsService
     {
         private readonly IGenericRepo<Projects> repo;
-        private readonly IGenericRepo<User> userRepo;
+        private readonly IGenericRepo<Employee> userRepo;
         private readonly IGenericRepo<Sector> sectorRepo;
         private readonly IMapper mapper;
 
-        public ProjectsService(IGenericRepo<Projects> repo, IGenericRepo<User> userRepo, IGenericRepo<Sector> sectorRepo, IMapper mapper)
+        public ProjectsService(IGenericRepo<Projects> repo, IGenericRepo<Employee> userRepo, IGenericRepo<Sector> sectorRepo, IMapper mapper)
         {
             this.repo = repo;
             this.userRepo = userRepo;
@@ -28,7 +28,7 @@ namespace Deep_lines_Backend.BLL.Services
             var mapped = mapper.Map<Projects>(projectDTO);
             if (projectDTO.User_Id.HasValue)
             {
-                mapped.user = await userRepo.GetByIdAsync(projectDTO.User_Id.Value);
+                mapped.addedBy = projectDTO.User_Id;
             }
             if (projectDTO.Sector_Id.HasValue)
             {
@@ -62,7 +62,7 @@ namespace Deep_lines_Backend.BLL.Services
             mapper.Map(projectDTO, recorded);
             if (projectDTO.User_Id.HasValue)
             {
-                recorded.user = await userRepo.GetByIdAsync(projectDTO.User_Id.Value);
+                recorded.updatedBy = projectDTO.User_Id;
             }
             if (projectDTO.Sector_Id.HasValue)
             {

@@ -30,10 +30,14 @@ namespace Deep_lines_Backend.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("User_Id")
+                    b.Property<int?>("addedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -48,9 +52,10 @@ namespace Deep_lines_Backend.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<int?>("updatedBy")
+                        .HasColumnType("int");
 
-                    b.HasIndex("User_Id");
+                    b.HasKey("Id");
 
                     b.ToTable("Blogs");
                 });
@@ -131,6 +136,62 @@ namespace Deep_lines_Backend.DAL.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("department")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("employmentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("joinedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("jopTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -178,7 +239,7 @@ namespace Deep_lines_Backend.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("User_Id")
+                    b.Property<int?>("addedBy")
                         .HasColumnType("int");
 
                     b.Property<int>("categoryId")
@@ -198,9 +259,10 @@ namespace Deep_lines_Backend.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<int?>("updatedBy")
+                        .HasColumnType("int");
 
-                    b.HasIndex("User_Id");
+                    b.HasKey("Id");
 
                     b.HasIndex("categoryId");
 
@@ -218,7 +280,7 @@ namespace Deep_lines_Backend.DAL.Migrations
                     b.Property<int?>("Sector_Id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("User_Id")
+                    b.Property<int?>("addedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("description")
@@ -229,11 +291,15 @@ namespace Deep_lines_Backend.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("sectorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("updatedBy")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("Sector_Id");
-
-                    b.HasIndex("User_Id");
+                    b.HasIndex("sectorId");
 
                     b.ToTable("Projects");
                 });
@@ -282,7 +348,7 @@ namespace Deep_lines_Backend.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("User_Id")
+                    b.Property<int?>("addedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("description")
@@ -301,40 +367,16 @@ namespace Deep_lines_Backend.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("updatedBy")
+                        .HasColumnType("int");
+
                     b.Property<string>("vision")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("User_Id");
-
                     b.ToTable("Sectors");
-                });
-
-            modelBuilder.Entity("Deep_lines_Backend.DAL.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Deep_lines_Backend.Domain.Models.RefreshToken", b =>
@@ -368,16 +410,6 @@ namespace Deep_lines_Backend.DAL.Migrations
                     b.ToTable("RefreshTokens");
                 });
 
-            modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Blog", b =>
-                {
-                    b.HasOne("Deep_lines_Backend.DAL.Models.User", "user")
-                        .WithMany("Published_Blogs")
-                        .HasForeignKey("User_Id")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("user");
-                });
-
             modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Comment", b =>
                 {
                     b.HasOne("Deep_lines_Backend.DAL.Models.Blog", null)
@@ -402,11 +434,6 @@ namespace Deep_lines_Backend.DAL.Migrations
 
             modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Product", b =>
                 {
-                    b.HasOne("Deep_lines_Backend.DAL.Models.User", "published_user")
-                        .WithMany("Published_Products")
-                        .HasForeignKey("User_Id")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.HasOne("Deep_lines_Backend.DAL.Models.Category", "category")
                         .WithMany()
                         .HasForeignKey("categoryId")
@@ -414,25 +441,15 @@ namespace Deep_lines_Backend.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("category");
-
-                    b.Navigation("published_user");
                 });
 
             modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Projects", b =>
                 {
                     b.HasOne("Deep_lines_Backend.DAL.Models.Sector", "sector")
                         .WithMany("Related_Projects")
-                        .HasForeignKey("Sector_Id")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("Deep_lines_Backend.DAL.Models.User", "user")
-                        .WithMany("Published_Projects")
-                        .HasForeignKey("User_Id")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("sectorId");
 
                     b.Navigation("sector");
-
-                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Review", b =>
@@ -446,19 +463,9 @@ namespace Deep_lines_Backend.DAL.Migrations
                     b.Navigation("product");
                 });
 
-            modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Sector", b =>
-                {
-                    b.HasOne("Deep_lines_Backend.DAL.Models.User", "published_user")
-                        .WithMany("Published_Sectors")
-                        .HasForeignKey("User_Id")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("published_user");
-                });
-
             modelBuilder.Entity("Deep_lines_Backend.Domain.Models.RefreshToken", b =>
                 {
-                    b.HasOne("Deep_lines_Backend.DAL.Models.User", "User")
+                    b.HasOne("Deep_lines_Backend.DAL.Models.Employee", "User")
                         .WithMany("refreshTokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -472,6 +479,11 @@ namespace Deep_lines_Backend.DAL.Migrations
                     b.Navigation("comments");
                 });
 
+            modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Employee", b =>
+                {
+                    b.Navigation("refreshTokens");
+                });
+
             modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Product", b =>
                 {
                     b.Navigation("orders");
@@ -482,19 +494,6 @@ namespace Deep_lines_Backend.DAL.Migrations
             modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Sector", b =>
                 {
                     b.Navigation("Related_Projects");
-                });
-
-            modelBuilder.Entity("Deep_lines_Backend.DAL.Models.User", b =>
-                {
-                    b.Navigation("Published_Blogs");
-
-                    b.Navigation("Published_Products");
-
-                    b.Navigation("Published_Projects");
-
-                    b.Navigation("Published_Sectors");
-
-                    b.Navigation("refreshTokens");
                 });
 #pragma warning restore 612, 618
         }

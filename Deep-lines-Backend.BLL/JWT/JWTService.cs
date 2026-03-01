@@ -16,9 +16,9 @@ namespace Deep_lines_Backend.BLL.JWT
     public class JWTService : IJWTService
     {
         private readonly JWTConfig jWTConfig;
-        private readonly IUserService userService;
+        private readonly IEmployeeService userService;
         private readonly IRefreshTokenRepo refreshTokenRepo;
-        public JWTService(IOptions<JWTConfig> jwtConfig , IRefreshTokenRepo refreshTokenRepo , IUserService userService )
+        public JWTService(IOptions<JWTConfig> jwtConfig , IRefreshTokenRepo refreshTokenRepo , IEmployeeService userService )
         {
             this.jWTConfig = jwtConfig.Value;
             this.refreshTokenRepo = refreshTokenRepo;
@@ -37,13 +37,17 @@ namespace Deep_lines_Backend.BLL.JWT
 
         }
 
-        public string GenerateToken(User user)
+        public string GenerateToken(Employee user)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
+                new Claim(JwtRegisteredClaimNames.Name, user.Name ?? string.Empty),
+                new Claim(ClaimTypes.Role, user.Role ?? string.Empty),
+                new Claim("department", user.department ?? string.Empty),
+                new Claim("jopTitle", user.jopTitle ?? string.Empty),
+                new Claim("status", user.status ?? string.Empty)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jWTConfig.Key));

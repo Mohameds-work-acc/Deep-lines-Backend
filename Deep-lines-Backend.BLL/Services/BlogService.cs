@@ -27,12 +27,11 @@ namespace Deep_lines_Backend.BLL.Services
             // ensure we don't set an invalid FK (0)
             if (blogDTO.User_Id.HasValue && blogDTO.User_Id.Value != 0)
             {
-                mappedBlog.User_Id = blogDTO.User_Id;
+                mappedBlog.addedBy = blogDTO.User_Id;
             }
             else
             {
-                mappedBlog.User_Id = null;
-                mappedBlog.user = null;
+                mappedBlog.addedBy = null;
             }
 
             await repo.AddAsync(mappedBlog);
@@ -66,12 +65,11 @@ namespace Deep_lines_Backend.BLL.Services
             mapper.Map(blogDTO, recorded_blog);
             if (blogDTO.User_Id.HasValue && blogDTO.User_Id.Value != 0)
             {
-                recorded_blog.User_Id = blogDTO.User_Id;
+                recorded_blog.addedBy = blogDTO.User_Id;
             }
             else
             {
-                recorded_blog.User_Id = null;
-                recorded_blog.user = null;
+                recorded_blog.addedBy = null;
             }
 
             await repo.UpdateAsync(recorded_blog);

@@ -1,5 +1,6 @@
 ﻿using Deep_lines_Backend.DAL.Models;
 using Deep_lines_Backend.Domain.Models;
+using Deep_lines_Backend.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,34 +21,15 @@ namespace Deep_lines_Backend.DAL.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Projects>()
-                .HasOne(p => p.user)
-                .WithMany(u => u.Published_Projects)
-                .HasForeignKey(p => p.User_Id)
-                .OnDelete(DeleteBehavior.NoAction);
+           
 
-            modelBuilder.Entity<Projects>()
-                .HasOne(p => p.sector)
-                .WithMany(u => u.Related_Projects)
-                .HasForeignKey(p => p.Sector_Id)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<Blog>()
-                .HasOne(b => b.user)
-                .WithMany(u => u.Published_Blogs)
-                .HasForeignKey(b => b.User_Id)
-                .OnDelete(DeleteBehavior.NoAction); 
-
-            modelBuilder.Entity<Sector>()
-                .HasOne(s => s.published_user)
-                .WithMany(u => u.Published_Sectors)
-                .HasForeignKey(s => s.User_Id)
-                .OnDelete(DeleteBehavior.NoAction); 
-            modelBuilder.Entity<Product>()
-                .HasOne(p=> p.published_user)
-                .WithMany(u=>u.Published_Products)
-                .HasForeignKey(p=> p.User_Id)
-                .OnDelete(DeleteBehavior.NoAction);
+            // RefreshToken -> Employee relationship
+            modelBuilder.Entity<RefreshToken>()
+                .HasOne(r => r.User)
+                .WithMany(e => e.refreshTokens)
+                .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
         }
 
         public DbSet<Blog> Blogs { get; set; }
@@ -59,7 +41,7 @@ namespace Deep_lines_Backend.DAL.Context
         public DbSet<Projects> Projects { get; set; }
         public DbSet<Review> Reviwe { get; set; }
         public DbSet<Sector> Sectors { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
 

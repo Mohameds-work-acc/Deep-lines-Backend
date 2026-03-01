@@ -8,7 +8,7 @@ namespace Deep_lines_Backend.BLL.JWT
 {
     public interface IJWTService
     {
-        public string GenerateToken(User user);
+        public string GenerateToken(Employee user);
         public string GenerateRefreshToken();
         public RefreshTokenResponse? RefreshToken(int userID , string refreshToken);
     }

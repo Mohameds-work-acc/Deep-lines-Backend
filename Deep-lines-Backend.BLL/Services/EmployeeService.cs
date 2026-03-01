@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Deep_lines_Backend.BLL.Services
 {
-    public class UserService : IUserService
+    public class EmployeeService : IEmployeeService
     {
-        private readonly IGenericRepo<User> repo;
+        private readonly IGenericRepo<Employee> repo;
         private readonly IMapper mapper;
         private readonly PasswordHasher<object> passwordHasher = new();
 
-        public UserService(IGenericRepo<User> repo, IMapper mapper)
+        public EmployeeService(IGenericRepo<Employee> repo, IMapper mapper)
         {
             this.repo = repo;
             this.mapper = mapper;
@@ -23,7 +23,7 @@ namespace Deep_lines_Backend.BLL.Services
 
         public async Task AddUser(AddUserDTO userDTO)
         {
-            var mapped = mapper.Map<User>(userDTO);
+            var mapped = mapper.Map<Employee>(userDTO);
 
             mapped.Password = passwordHasher.HashPassword(null, mapped.Password);
 
@@ -38,12 +38,12 @@ namespace Deep_lines_Backend.BLL.Services
             return true;
         }
 
-        public Task<List<User>> GetAll()
+        public Task<List<Employee>> GetAll()
         {
             return repo.GetAllAsync();
         }
 
-        public Task<User> GetByEmail(string email)
+        public Task<Employee> GetByEmail(string email)
         {
             
             var users = repo.GetAllAsync().Result;
@@ -52,7 +52,7 @@ namespace Deep_lines_Backend.BLL.Services
 
         }
 
-        public async Task<User> GetById(int id)
+        public async Task<Employee> GetById(int id)
         {
             return await repo.GetByIdAsync(id);
         }

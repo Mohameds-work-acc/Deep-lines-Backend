@@ -11,10 +11,10 @@ namespace Deep_lines_Backend.BLL.Services
     public class SectorService : ISectorService
     {
         private readonly IGenericRepo<Sector> repo;
-        private readonly IGenericRepo<User> userRepo;
+        private readonly IGenericRepo<Employee> userRepo;
         private readonly IMapper mapper;
 
-        public SectorService(IGenericRepo<Sector> repo, IGenericRepo<User> userRepo, IMapper mapper)
+        public SectorService(IGenericRepo<Sector> repo, IGenericRepo<Employee> userRepo, IMapper mapper)
         {
             this.repo = repo;
             this.userRepo = userRepo;
@@ -26,7 +26,7 @@ namespace Deep_lines_Backend.BLL.Services
             var mapped = mapper.Map<Sector>(sectorDTO);
             if (sectorDTO.User_Id.HasValue)
             {
-                mapped.published_user = await userRepo.GetByIdAsync(sectorDTO.User_Id.Value);
+                mapped.addedBy = sectorDTO.User_Id;
             }
             await repo.AddAsync(mapped);
         }
@@ -56,7 +56,7 @@ namespace Deep_lines_Backend.BLL.Services
             mapper.Map(sectorDTO, recorded);
             if (sectorDTO.User_Id.HasValue)
             {
-                recorded.published_user = await userRepo.GetByIdAsync(sectorDTO.User_Id.Value);
+                recorded.updatedBy = sectorDTO.User_Id;
             }
             await repo.UpdateAsync(recorded);
             return true;
