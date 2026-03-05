@@ -11,5 +11,6 @@ namespace Deep_lines_Backend.BLL.DTOs.BlogEntity
         public string imageUrl { get; set; }
         public DateTime published_date { get; set; } = DateTime.Now;
         public int? User_Id { get; set; }
+        public int? updatedBy { get; set; }
     }
 }

@@ -30,6 +30,8 @@ namespace Deep_lines_Backend.BLL.Mapping
             CreateMap<AddProductDTO, Product>().ReverseMap();
             CreateMap<AddReviewDTO, Review>().ReverseMap();
             CreateMap<AddProjectsDTO, Projects>().ReverseMap();
+            CreateMap<getBlogDTO, Blog>().ReverseMap();
+            CreateMap<getBlogUserDTO , Employee>().ReverseMap();
         }
     }
 }

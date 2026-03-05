@@ -20,6 +20,7 @@ namespace Deep_lines_Backend.Controllers
         public async Task<IActionResult> GetAll()
         {
             var blogs = await blogService.GetAll();
+            
             return Ok(blogs);
         }
 

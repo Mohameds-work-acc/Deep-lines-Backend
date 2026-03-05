@@ -10,7 +10,7 @@ namespace Deep_lines_Backend.BLL.Interfaces.IService
     {
         public Task AddBlog(AddBlogDTO blogDTO);
         public Task<Blog> GetById(int id);
-        public Task<List<Blog>> GetAll();
+        public Task<List<getBlogDTO>> GetAll();
         public Task<bool> UpdateBlog(AddBlogDTO blogDTO , int id);
         public Task<bool> DeleteBlog(int id);
 

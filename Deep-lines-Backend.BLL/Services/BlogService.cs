@@ -12,13 +12,15 @@ namespace Deep_lines_Backend.BLL.Services
 {
     public class BlogService : IBlogService
     {
+        private readonly IEmployeeService employeeService;
         private readonly IGenericRepo<Blog> repo;
         private readonly IMapper mapper;
         
-        public BlogService(IGenericRepo<Blog> repo, IMapper mapper)
+        public BlogService(IGenericRepo<Blog> repo, IMapper mapper , IEmployeeService employeeService)
         {
             this.repo = repo;
             this.mapper = mapper;
+            this.employeeService = employeeService;
         }
 
         public async Task AddBlog(AddBlogDTO blogDTO)
@@ -45,9 +47,37 @@ namespace Deep_lines_Backend.BLL.Services
             return true;
         }
 
-        public Task<List<Blog>> GetAll()
+        public async Task<List<getBlogDTO>> GetAll()
         {
-            return repo.GetAllAsync();
+            var blogs = await repo.GetAllAsync();
+            // Map each blog individually to capture detailed mapping errors and avoid bulk mapping issues
+            var mappedBlogs = new List<getBlogDTO>();
+            foreach (var blog in blogs)
+            {
+                try
+                {
+                    var dto = mapper.Map<getBlogDTO>(blog);
+
+                    if (blog.addedBy.HasValue)
+                    {
+                        var employee = await employeeService.GetById(blog.addedBy.Value);
+                        if (employee != null)
+                        {
+                            var mappedEmployee = mapper.Map<getBlogUserDTO>(employee);
+                            dto.author = mappedEmployee;
+                        }
+                    }
+
+                    mappedBlogs.Add(dto);
+                }
+                catch (AutoMapperMappingException ex)
+                {
+                    // Rethrow with context about which Blog failed to map to help diagnose root cause
+                    throw new AutoMapperMappingException($"Failed mapping Blog (Id={blog?.Id.ToString() ?? "null"}) to getBlogDTO.", ex);
+                }
+            }
+
+            return mappedBlogs;
         }
 
         public async Task<Blog> GetById(int id)
