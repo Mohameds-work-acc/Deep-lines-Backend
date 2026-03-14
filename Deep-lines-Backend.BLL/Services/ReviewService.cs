@@ -58,7 +58,7 @@ namespace Deep_lines_Backend.BLL.Services
             {
                 recorded.product = await productRepo.GetByIdAsync(reviewDTO.Product_Id);
             }
-            await repo.UpdateAsync(recorded);
+            repo.UpdateAsync(recorded);
             return true;
         }
     }

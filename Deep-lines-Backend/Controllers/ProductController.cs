@@ -31,7 +31,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] AddProductDTO dto)
+        public async Task<IActionResult> Create( AddProductDTO dto)
         {
             if (dto == null) return BadRequest();
             await productService.AddProduct(dto);
@@ -39,7 +39,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] AddProductDTO dto)
+        public async Task<IActionResult> Update(int id, AddProductDTO dto)
         {
             if (dto == null) return BadRequest();
             var updated = await productService.UpdateProduct(dto, id);

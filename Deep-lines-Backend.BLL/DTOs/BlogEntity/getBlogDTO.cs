@@ -1,4 +1,5 @@
 ﻿using Deep_lines_Backend.DAL.Models;
+using Deep_lines_Backend.Domain.Models.SharedDTOs.CloudinaryDTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +11,8 @@ namespace Deep_lines_Backend.BLL.DTOs.BlogEntity
         public int Id { get; set; }
         public string title { get; set; }
         public string content { get; set; }
-        public string imageUrl { get; set; }
+        public string? ImagePublicId { get; set; }
+        public string? ImageUrl { get; set; }
         public getBlogUserDTO author { get; set; } 
         public getBlogUserDTO? updatedBy { get; set; }
         public DateTime published_date { get; set; } = DateTime.Now;

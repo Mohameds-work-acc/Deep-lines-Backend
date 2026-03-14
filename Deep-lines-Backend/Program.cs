@@ -7,6 +7,7 @@ using Deep_lines_Backend.BLL.Interfaces.IService;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using Deep_lines_Backend.BLL.DTOs.EmailDTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,8 @@ builder.Services.addServiceLifetimesExtention();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddJwtAuthentication(builder.Configuration);
+
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailAppSettings"));
 
 var app = builder.Build();
 

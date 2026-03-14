@@ -33,7 +33,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] AddBlogDTO blogDto)
+        public async Task<IActionResult> Create( AddBlogDTO blogDto)
         {
             if (blogDto == null) return BadRequest();
 
@@ -43,7 +43,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] AddBlogDTO blogDto)
+        public async Task<IActionResult> Update(int id, AddBlogDTO blogDto) 
         {
             if (blogDto == null) return BadRequest();
 

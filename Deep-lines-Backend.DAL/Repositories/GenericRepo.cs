@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Deep_lines_Backend.DAL.Repositories
 {
@@ -29,16 +31,29 @@ namespace Deep_lines_Backend.DAL.Repositories
             return await dbset.ToListAsync();
         }
 
+        public async Task<List<T>> GetAllWithIncludesAsync(params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = dbset;
+            if (includes != null && includes.Length > 0)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+            return await query.ToListAsync();
+        }
+
         public async Task AddAsync(T entity)
         {
             await dbset.AddAsync(entity);
             await dbContext_.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(T entity)
+        public  void UpdateAsync(T entity)
         {
             dbset.Update(entity);
-            await dbContext_.SaveChangesAsync();
+            dbContext_.SaveChanges();
         }
 
         public async Task DeleteAsync(T entity)

@@ -31,7 +31,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] AddSectorDTO dto)
+        public async Task<IActionResult> Create( AddSectorDTO dto)
         {
             if (dto == null) return BadRequest();
             await sectorService.AddSector(dto);
@@ -39,7 +39,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] AddSectorDTO dto)
+        public async Task<IActionResult> Update(int id,  AddSectorDTO dto)
         {
             if (dto == null) return BadRequest();
             var updated = await sectorService.UpdateSector(dto, id);

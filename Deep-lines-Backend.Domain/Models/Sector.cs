@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Deep_lines_Backend.Domain.Models.SharedDTOs.CloudinaryDTO;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Deep_lines_Backend.DAL.Models
@@ -9,7 +11,8 @@ namespace Deep_lines_Backend.DAL.Models
         public int Id { get; set; }
         public string title { get; set; }
         public string description { get; set; }
-        public string image_url { get; set; }
+        public string? ImagePublicId { get; set; }
+        public string? ImageUrl { get; set; }
         public string vision {  get; set; }
         public string mission { get; set;  }
 

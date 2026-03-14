@@ -48,7 +48,7 @@ namespace Deep_lines_Backend.BLL.Services
             var recorded = await repo.GetByIdAsync(id);
             if (recorded == null) return false;
             mapper.Map(customerDTO, recorded);
-            await repo.UpdateAsync(recorded);
+             repo.UpdateAsync(recorded);
             return true;
         }
     }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Deep_lines_Backend.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260301073143_firstMig")]
+    [Migration("20260311172455_firstMig")]
     partial class firstMig
     {
         /// <inheritdoc />
@@ -33,18 +33,16 @@ namespace Deep_lines_Backend.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ImagePublicId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("addedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("imageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -61,23 +59,6 @@ namespace Deep_lines_Backend.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Blogs");
-                });
-
-            modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Comment", b =>
@@ -168,7 +149,6 @@ namespace Deep_lines_Backend.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("department")
@@ -242,10 +222,16 @@ namespace Deep_lines_Backend.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("addedBy")
+                    b.Property<string>("ImagePublicId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SectorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("categoryId")
+                    b.Property<int?>("addedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("description")
@@ -267,7 +253,7 @@ namespace Deep_lines_Backend.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("categoryId");
+                    b.HasIndex("SectorId");
 
                     b.ToTable("Products");
                 });
@@ -280,7 +266,13 @@ namespace Deep_lines_Backend.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("Sector_Id")
+                    b.Property<string>("ImagePublicId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SectorId")
                         .HasColumnType("int");
 
                     b.Property<int?>("addedBy")
@@ -290,19 +282,16 @@ namespace Deep_lines_Backend.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("image_url")
+                    b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("sectorId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("updatedBy")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("sectorId");
+                    b.HasIndex("SectorId");
 
                     b.ToTable("Projects");
                 });
@@ -351,14 +340,16 @@ namespace Deep_lines_Backend.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ImagePublicId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("addedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("image_url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -437,20 +428,22 @@ namespace Deep_lines_Backend.DAL.Migrations
 
             modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Product", b =>
                 {
-                    b.HasOne("Deep_lines_Backend.DAL.Models.Category", "category")
+                    b.HasOne("Deep_lines_Backend.DAL.Models.Sector", "sector")
                         .WithMany()
-                        .HasForeignKey("categoryId")
+                        .HasForeignKey("SectorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("category");
+                    b.Navigation("sector");
                 });
 
             modelBuilder.Entity("Deep_lines_Backend.DAL.Models.Projects", b =>
                 {
                     b.HasOne("Deep_lines_Backend.DAL.Models.Sector", "sector")
                         .WithMany("Related_Projects")
-                        .HasForeignKey("sectorId");
+                        .HasForeignKey("SectorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("sector");
                 });

@@ -1,6 +1,7 @@
 ﻿using Deep_lines_Backend.DAL.Models;
 using Deep_lines_Backend.Domain.Models;
 using Deep_lines_Backend.Domain.Models;
+using Deep_lines_Backend.Domain.Models.SharedDTOs.CloudinaryDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,6 @@ namespace Deep_lines_Backend.DAL.Context
         }
 
         public DbSet<Blog> Blogs { get; set; }
-        public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }

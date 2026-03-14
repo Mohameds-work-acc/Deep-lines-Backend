@@ -9,8 +9,9 @@ namespace Deep_lines_Backend.BLL.Interfaces.IRepos
 {
     public interface IRefreshTokenRepo
     {
-        public RefreshTokenDTO? CheckRefreshToken(int userID , string token);
+        public TokensResponse? CheckRefreshToken(int userID , string token);
         public void addRefreshToken(RefreshToken refreshToken);
-        public void removeRefreshToken(int tokenID);
+        public void removeRefreshToken(string token);
+        public List<RefreshToken>? getRefreshTokenList(int userId);
     }
 }

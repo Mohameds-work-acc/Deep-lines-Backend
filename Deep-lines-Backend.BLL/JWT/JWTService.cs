@@ -2,6 +2,7 @@
 using Deep_lines_Backend.BLL.Interfaces.IRepos;
 using Deep_lines_Backend.BLL.Interfaces.IService;
 using Deep_lines_Backend.DAL.Models;
+using Deep_lines_Backend.Domain.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -25,15 +26,38 @@ namespace Deep_lines_Backend.BLL.JWT
             this.userService = userService;
         }
 
-        public string GenerateRefreshToken()
+        public string GenerateRefreshToken(int userId)
         {
             
             var randomNumber = new byte[32];
-            using (var rng = RandomNumberGenerator.Create())
+
+            using(var rng = RandomNumberGenerator.Create())
             {
                 rng.GetBytes(randomNumber);
-                return Convert.ToBase64String(randomNumber);
             }
+
+            var tokenString = Convert.ToBase64String(randomNumber);
+
+            var refreshToken = new RefreshToken
+            {
+                    createdOn = DateTime.UtcNow,
+                    Expiration = DateTime.UtcNow.AddDays(jWTConfig.RefreshTokenExpiresInDays),
+                    Token = tokenString,
+                    UserId = userId,
+                    
+            };
+
+            var refreshTokenRelated = refreshTokenRepo.getRefreshTokenList(userId);
+
+            foreach (var rToken in refreshTokenRelated)
+            {
+                refreshTokenRepo.removeRefreshToken(rToken.Token);
+            }
+            
+
+            refreshTokenRepo.addRefreshToken(refreshToken);
+            return tokenString;
+            
 
         }
 
@@ -44,7 +68,7 @@ namespace Deep_lines_Backend.BLL.JWT
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
                 new Claim(JwtRegisteredClaimNames.Name, user.Name ?? string.Empty),
-                new Claim(ClaimTypes.Role, user.Role ?? string.Empty),
+                new Claim(ClaimTypes.Role, user.department ?? string.Empty),
                 new Claim("department", user.department ?? string.Empty),
                 new Claim("jopTitle", user.jopTitle ?? string.Empty),
                 new Claim("status", user.status ?? string.Empty)
@@ -66,9 +90,9 @@ namespace Deep_lines_Backend.BLL.JWT
 
         }
 
-        public RefreshTokenResponse? RefreshToken(int userID , string refreshToken)
+        public TokensResponse? RefreshToken(int userID , string refreshToken)
         {
-            var refreshTokenResponse = new RefreshTokenResponse();
+            var refreshTokenResponse = new TokensResponse();
 
             var recordedToken = refreshTokenRepo.CheckRefreshToken(userID, refreshToken);
             if (recordedToken == null)
@@ -76,7 +100,7 @@ namespace Deep_lines_Backend.BLL.JWT
                 return null;
             }
 
-            refreshTokenRepo.removeRefreshToken(recordedToken.Id);
+            refreshTokenRepo.removeRefreshToken(recordedToken.RefreshToken);
 
             var user = userService.GetById(userID).Result;
 
@@ -84,7 +108,7 @@ namespace Deep_lines_Backend.BLL.JWT
 
             refreshTokenResponse.JWTTokenExpires = DateTime.Now.AddMinutes(jWTConfig.ExpiresInMinutes);
 
-            refreshTokenResponse.RefreshToken = GenerateRefreshToken();
+            refreshTokenResponse.RefreshToken = GenerateRefreshToken(userID);
 
             refreshTokenResponse.RefreshTokenExpires = DateTime.Now.AddDays(jWTConfig.RefreshTokenExpiresInDays);
 

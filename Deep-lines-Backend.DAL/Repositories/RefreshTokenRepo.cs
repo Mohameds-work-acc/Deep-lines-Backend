@@ -20,10 +20,11 @@ namespace Deep_lines_Backend.DAL.Repositories
         public void addRefreshToken(RefreshToken refreshToken)
         {
             dbContext.RefreshTokens.Add(refreshToken);
+            
             dbContext.SaveChanges();
         }
 
-        public RefreshTokenDTO? CheckRefreshToken(int userID, string token)
+        public TokensResponse? CheckRefreshToken(int userID, string token)
         {
             var tokenRecorded = dbContext.RefreshTokens.FirstOrDefault(r=> r.Token == token);
             if (tokenRecorded == null)
@@ -40,17 +41,22 @@ namespace Deep_lines_Backend.DAL.Repositories
             {
                 return null;
             }
-            return new RefreshTokenDTO
+            return new TokensResponse
             {
-                Id = tokenRecorded.Id,
-                Token = tokenRecorded.Token,
-                ExpiryDate = tokenRecorded.Expiration
+                RefreshToken = tokenRecorded.Token,
+                RefreshTokenExpires = tokenRecorded.Expiration
             };
         }
 
-        public void removeRefreshToken(int tokenID)
+        public List<RefreshToken>? getRefreshTokenList(int userId)
         {
-            var recordedToken = dbContext.RefreshTokens.FirstOrDefault(r => r.Id == tokenID);
+            var refreshTokens = dbContext.RefreshTokens.Where(r=> r.UserId == userId).ToList();
+            return refreshTokens;
+        }
+
+        public void removeRefreshToken(string token)
+        {
+            var recordedToken = dbContext.RefreshTokens.FirstOrDefault(r => r.Token == token);
             if (recordedToken != null)
             {
                 dbContext.RefreshTokens.Remove(recordedToken);

@@ -19,8 +19,8 @@ namespace Deep_lines_Backend.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    imageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImagePublicId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     addedBy = table.Column<int>(type: "int", nullable: true),
                     updatedBy = table.Column<int>(type: "int", nullable: true),
                     published_date = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -28,19 +28,6 @@ namespace Deep_lines_Backend.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Blogs", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,7 +57,7 @@ namespace Deep_lines_Backend.DAL.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     department = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     jopTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     employmentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -89,7 +76,8 @@ namespace Deep_lines_Backend.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    image_url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImagePublicId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     vision = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     mission = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     addedBy = table.Column<int>(type: "int", nullable: true),
@@ -123,31 +111,6 @@ namespace Deep_lines_Backend.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    price = table.Column<float>(type: "real", nullable: false),
-                    published_data = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    categoryId = table.Column<int>(type: "int", nullable: false),
-                    addedBy = table.Column<int>(type: "int", nullable: true),
-                    updatedBy = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Products_Categories_categoryId",
-                        column: x => x.categoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RefreshTokens",
                 columns: table => new
                 {
@@ -171,15 +134,43 @@ namespace Deep_lines_Backend.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    price = table.Column<float>(type: "real", nullable: false),
+                    ImagePublicId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    published_data = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SectorId = table.Column<int>(type: "int", nullable: false),
+                    addedBy = table.Column<int>(type: "int", nullable: true),
+                    updatedBy = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Sectors_SectorId",
+                        column: x => x.SectorId,
+                        principalTable: "Sectors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Projects",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    image_url = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Sector_Id = table.Column<int>(type: "int", nullable: true),
-                    sectorId = table.Column<int>(type: "int", nullable: true),
+                    ImagePublicId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SectorId = table.Column<int>(type: "int", nullable: false),
                     addedBy = table.Column<int>(type: "int", nullable: true),
                     updatedBy = table.Column<int>(type: "int", nullable: true)
                 },
@@ -187,10 +178,11 @@ namespace Deep_lines_Backend.DAL.Migrations
                 {
                     table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Projects_Sectors_sectorId",
-                        column: x => x.sectorId,
+                        name: "FK_Projects_Sectors_SectorId",
+                        column: x => x.SectorId,
                         principalTable: "Sectors",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -262,14 +254,14 @@ namespace Deep_lines_Backend.DAL.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_categoryId",
+                name: "IX_Products_SectorId",
                 table: "Products",
-                column: "categoryId");
+                column: "SectorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projects_sectorId",
+                name: "IX_Projects_SectorId",
                 table: "Projects",
-                column: "sectorId");
+                column: "SectorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
@@ -307,16 +299,13 @@ namespace Deep_lines_Backend.DAL.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Sectors");
-
-            migrationBuilder.DropTable(
                 name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Sectors");
         }
     }
 }

@@ -8,8 +8,8 @@ namespace Deep_lines_Backend.BLL.Interfaces.IService
     public interface IProductService
     {
         public Task AddProduct(AddProductDTO productDTO);
-        public Task<List<Product>> GetAll();
-        public Task<Product> GetById(int id);
+        public Task<List<getProductDTO>> GetAll();
+        public Task<getProductDTO> GetById(int id);
         public Task<bool> UpdateProduct(AddProductDTO productDTO, int id);
         public Task<bool> DeleteProduct(int id);
     }

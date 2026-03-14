@@ -8,8 +8,9 @@ namespace Deep_lines_Backend.BLL.Interfaces.IService
     public interface ISectorService
     {
         public Task AddSector(AddSectorDTO sectorDTO);
-        public Task<List<Sector>> GetAll();
-        public Task<Sector> GetById(int id);
+        public Task<List<getSectorDTO>> GetAll();
+        public Task<getSectorDTO> GetById(int id);
+        public Task<List<Sector>> GetByIdsAsync(List<int> ids);
         public Task<bool> UpdateSector(AddSectorDTO sectorDTO, int id);
         public Task<bool> DeleteSector(int id);
     }

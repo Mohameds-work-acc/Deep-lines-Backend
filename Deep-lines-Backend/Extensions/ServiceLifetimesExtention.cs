@@ -23,10 +23,11 @@ namespace Deep_lines_Backend.Extensions
             services.AddScoped<IProjectsService, ProjectsService>();
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<ISectorService, SectorService>();
-            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IRefreshTokenRepo,RefreshTokenRepo>();
             services.AddScoped<IJWTService , JWTService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<CloudinaryService>();
+            services.AddScoped<IEmailService, EmailService>();
             return services;
         }
     }

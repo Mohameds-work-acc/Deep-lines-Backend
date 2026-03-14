@@ -1,0 +1,58 @@
+using Deep_lines_Backend.BLL.DTOs.SectorEntity;
+using Deep_lines_Backend.BLL.Interfaces.IService;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Deep_lines_Backend.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CategoryController : ControllerBase
+    {
+        private readonly ISectorService sectorService;
+
+        public CategoryController(ISectorService sectorService)
+        {
+            this.sectorService = sectorService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var sectors = await sectorService.GetAll();
+            return Ok(sectors);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var sector = await sectorService.GetById(id);
+            if (sector == null) return NotFound();
+            return Ok(sector);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromForm] AddSectorDTO dto)
+        {
+            if (dto == null) return BadRequest();
+            await sectorService.AddSector(dto);
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromForm] AddSectorDTO dto)
+        {
+            if (dto == null) return BadRequest();
+            var updated = await sectorService.UpdateSector(dto, id);
+            if (!updated) return NotFound();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleted = await sectorService.DeleteSector(id);
+            if (!deleted) return NotFound();
+            return NoContent();
+        }
+    }
+}

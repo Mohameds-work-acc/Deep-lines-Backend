@@ -1,6 +1,7 @@
 ﻿using Deep_lines_Backend.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Deep_lines_Backend.DAL.Models
@@ -14,7 +15,7 @@ namespace Deep_lines_Backend.DAL.Models
         public string Address { get; set; }
         public string Password { get; set; }
         public string status { get; set; }
-        public string Role { get; set; }
+        public string? Role { get; set; } = null;
         public string department { get; set; }
         public string jopTitle { get; set; }
         public string employmentType { get; set; }

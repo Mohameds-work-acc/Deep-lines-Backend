@@ -31,7 +31,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] AddProjectsDTO dto)
+        public async Task<IActionResult> Create( AddProjectsDTO dto)
         {
             if (dto == null) return BadRequest();
             await projectsService.AddProject(dto);
@@ -39,7 +39,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] AddProjectsDTO dto)
+        public async Task<IActionResult> Update(int id, AddProjectsDTO dto)
         {
             if (dto == null) return BadRequest();
             var updated = await projectsService.UpdateProject(dto, id);

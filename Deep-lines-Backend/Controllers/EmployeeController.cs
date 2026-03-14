@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Deep_lines_Backend.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize (Roles = "Administration") ]
+    
     [ApiController]
     public class EmployeeController : ControllerBase
     {
@@ -37,7 +39,15 @@ namespace Deep_lines_Backend.Controllers
         {
             if (userDto == null) return BadRequest();
 
-            await userService.AddUser(userDto);
+            var checkFailer = await userService.AddUser(userDto);
+            if (checkFailer != null)
+            {
+                return BadRequest(new
+                {
+                    code = checkFailer.code,
+                    message = checkFailer.message
+                });
+            }
             return Ok();
         }
 
@@ -58,5 +68,6 @@ namespace Deep_lines_Backend.Controllers
             if (!deleted) return NotFound();
             return NoContent();
         }
+        
     }
 }

@@ -7,8 +7,7 @@ namespace Deep_lines_Backend.BLL.DTOs.AuthServices
 {
     public class AuthResponse
     {
-        public string Token { get; set; } = string.Empty;
-        public RefreshTokenDTO refreshToken { get; set; }
+        public TokensResponse? tokens { get; set; } = new TokensResponse();
         public string Message { get; set; } = string.Empty;
     }
 }

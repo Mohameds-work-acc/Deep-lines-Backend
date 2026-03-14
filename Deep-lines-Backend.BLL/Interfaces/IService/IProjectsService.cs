@@ -8,8 +8,8 @@ namespace Deep_lines_Backend.BLL.Interfaces.IService
     public interface IProjectsService
     {
         public Task AddProject(AddProjectsDTO projectDTO);
-        public Task<List<Projects>> GetAll();
-        public Task<Projects> GetById(int id);
+        public Task<List<getProjectsDTO>> GetAll();
+        public Task<getProjectsDTO> GetById(int id);
         public Task<bool> UpdateProject(AddProjectsDTO projectDTO, int id);
         public Task<bool> DeleteProject(int id);
     }

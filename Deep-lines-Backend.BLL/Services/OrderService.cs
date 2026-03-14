@@ -61,7 +61,7 @@ namespace Deep_lines_Backend.BLL.Services
                 var customer = await customerRepo.GetByIdAsync(orderDTO.Customer_Id);
                 recorded.Customer = customer;
             }
-            await repo.UpdateAsync(recorded);
+             repo.UpdateAsync(recorded);
             return true;
         }
     }
