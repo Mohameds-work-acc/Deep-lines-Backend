@@ -1,5 +1,6 @@
 using Deep_lines_Backend.BLL.DTOs.ProductEntity;
 using Deep_lines_Backend.BLL.Interfaces.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Deep_lines_Backend.Controllers
@@ -16,6 +17,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var products = await productService.GetAll();
@@ -23,6 +25,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var product = await productService.GetById(id);

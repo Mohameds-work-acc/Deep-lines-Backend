@@ -37,7 +37,10 @@ builder.Services.AddDbContext<AppDbContext>(options=> options.UseSqlServer(conne
 
 builder.Services.addServiceLifetimesExtention();
 
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<MappingProfile>();
+});
 
 builder.Services.AddJwtAuthentication(builder.Configuration);
 

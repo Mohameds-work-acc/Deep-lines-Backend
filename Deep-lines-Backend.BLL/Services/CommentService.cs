@@ -4,6 +4,7 @@ using Deep_lines_Backend.BLL.Interfaces.IRepos;
 using Deep_lines_Backend.BLL.Interfaces.IService;
 using Deep_lines_Backend.DAL.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Deep_lines_Backend.BLL.Services
@@ -33,10 +34,6 @@ namespace Deep_lines_Backend.BLL.Services
             return true;
         }
 
-        public Task<List<Comment>> GetAll()
-        {
-            return repo.GetAllAsync();
-        }
 
         public async Task<Comment> GetById(int id)
         {
@@ -50,6 +47,12 @@ namespace Deep_lines_Backend.BLL.Services
             mapper.Map(commentDTO, recorded);
             repo.UpdateAsync(recorded);
             return true;
+        }
+
+        public async Task<List<Comment>> GetByBlogId(int blogId)
+        {
+            var all = await repo.GetAllAsync();
+            return all.Where(c => c.BlogId.HasValue && c.BlogId.Value == blogId).ToList();
         }
     }
 }

@@ -65,7 +65,7 @@ namespace Deep_lines_Backend.BLL.Services
 
         public async Task<List<getBlogDTO>> GetAll()
         {
-            var blogs = await repo.GetAllAsync();
+            var blogs = await repo.GetAllWithIncludesAsync(c=>c.comments);
             // Map each blog individually to capture detailed mapping errors and avoid bulk mapping issues
             var mappedBlogs = new List<getBlogDTO>();
             var relatedEmployees = blogs.Where(b => b.addedBy.HasValue).Select(b => b.addedBy.Value).Distinct().ToList();
@@ -99,7 +99,8 @@ namespace Deep_lines_Backend.BLL.Services
 
         public async Task<Blog> GetById(int id)
         {
-            var blog = await repo.GetByIdAsync(id);
+            var blogs = await repo.GetAllWithIncludesAsync(c => c.comments);
+            var blog = blogs.FirstOrDefault(b => b.Id == id);
             return blog;
         }
 

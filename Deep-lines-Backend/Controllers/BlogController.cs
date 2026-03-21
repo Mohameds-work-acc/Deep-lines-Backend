@@ -2,6 +2,7 @@
 using Deep_lines_Backend.BLL.DTOs.BlogEntity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Deep_lines_Backend.Controllers
 {
@@ -17,6 +18,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var blogs = await blogService.GetAll();
@@ -25,6 +27,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var blog = await blogService.GetById(id);

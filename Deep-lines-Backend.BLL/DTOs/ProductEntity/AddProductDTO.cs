@@ -9,7 +9,7 @@ namespace Deep_lines_Backend.BLL.DTOs.ProductEntity
     {
         public string title { get; set; }
         public string description { get; set; }
-        public float price { get; set; }
+        public float? price { get; set; } = null;
         public IFormFile? image { get; set; } = null;
        
         public DateTime published_data { get; set; } = DateTime.Now;

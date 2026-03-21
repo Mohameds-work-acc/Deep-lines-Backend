@@ -1,5 +1,6 @@
 using Deep_lines_Backend.BLL.DTOs.ReviewEntity;
 using Deep_lines_Backend.BLL.Interfaces.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Deep_lines_Backend.Controllers
@@ -16,6 +17,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var reviews = await reviewService.GetAll();
@@ -23,6 +25,7 @@ namespace Deep_lines_Backend.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var review = await reviewService.GetById(id);

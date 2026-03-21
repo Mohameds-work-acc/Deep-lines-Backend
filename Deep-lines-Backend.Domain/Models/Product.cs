@@ -11,7 +11,7 @@ namespace Deep_lines_Backend.DAL.Models
         public int Id { get; set; }
         public string title { get; set; }
         public string description { get; set; }
-        public float price { get; set; }
+        public float? price { get; set; } = null;
 
         public string? ImagePublicId { get; set; }
         public string? ImageUrl { get; set; }
