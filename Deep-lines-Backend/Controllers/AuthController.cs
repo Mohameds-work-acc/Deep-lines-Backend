@@ -20,11 +20,11 @@ namespace Deep_lines_Backend.Controllers
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public IActionResult Login([FromBody] LoginDTO login)
+        public async Task<IActionResult> Login([FromBody] LoginDTO login)
         {
             if (login == null) return BadRequest();
 
-            var result = authService.Authenticate(login);
+            var result = await authService.Authenticate(login);
             if (result == null) return Unauthorized();
 
             return Ok(result);

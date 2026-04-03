@@ -9,7 +9,7 @@ namespace Deep_lines_Backend.BLL.Interfaces.IService
 {
     public interface IAuthService
     {
-        public AuthResponse? Authenticate(LoginDTO loginDTO);
+        public Task<AuthResponse?> Authenticate(LoginDTO loginDTO);
         public TokensResponse RefreshToken(int id ,  string refreshToken);
         public Task<failResponse>? ChangePassword(ChangePasswordDTO changePasswordDTO);
         public Task<failResponse>? resetPasswordToDefult(int id);

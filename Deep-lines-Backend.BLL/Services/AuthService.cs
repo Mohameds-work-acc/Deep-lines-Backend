@@ -40,7 +40,7 @@ namespace Deep_lines_Backend.BLL.Services
             this.jWTConfig = options.Value;
         }
 
-        public  AuthResponse? Authenticate(LoginDTO loginDTO)
+        public async Task<AuthResponse?> Authenticate(LoginDTO loginDTO)
         {
             if (loginDTO == null || string.IsNullOrWhiteSpace(loginDTO.Email) || string.IsNullOrEmpty(loginDTO.Password))
                 return null;
@@ -62,7 +62,15 @@ namespace Deep_lines_Backend.BLL.Services
                 Body = "There is a new Login to your account",
                 Subject = "New Login Successfully"
             };
-            emailService.sendEmail(sendEmailDTO);
+            // Try to send notification email; do not block authentication if email fails
+            try
+            {
+                await emailService.sendEmail(sendEmailDTO);
+            }
+            catch
+            {
+                // swallow email exceptions to avoid failing authentication flow
+            }
             var authResponse = new AuthResponse
             {
                 Message = "Login successful",

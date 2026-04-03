@@ -21,7 +21,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "AllowFront",
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200")
+            policy.WithOrigins("http://localhost:4200" , "http://localhost:11617")
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials();
@@ -52,15 +52,16 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-
     app.UseSwaggerUI();
-
-    app.UseCors("AllowFront");
-
 }
 
 app.UseHttpsRedirection();
 
+// Apply CORS policy in all environments (adjust origins for production as needed)
+app.UseCors("AllowFront");
+
+// Enable authentication and authorization
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers().RequireAuthorization();

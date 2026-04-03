@@ -32,13 +32,26 @@ namespace Deep_lines_Backend.BLL.Services
             };
 
             using var smpt = new SmtpClient();
-
-            await smpt.ConnectAsync(emailSettings.Host, emailSettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
-
-            await smpt.AuthenticateAsync(emailSettings.Email, emailSettings.Password);
-
-            await smpt.SendAsync(email);
-            await smpt.DisconnectAsync(true);
+            try
+            {
+                await smpt.ConnectAsync(emailSettings.Host, emailSettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
+                await smpt.AuthenticateAsync(emailSettings.Email, emailSettings.Password);
+                await smpt.SendAsync(email);
+            }
+            finally
+            {
+                if (smpt.IsConnected)
+                {
+                    try
+                    {
+                        await smpt.DisconnectAsync(true);
+                    }
+                    catch
+                    {
+                        // swallow disconnect exceptions to avoid masking send exceptions
+                    }
+                }
+            }
 
         }
     }
